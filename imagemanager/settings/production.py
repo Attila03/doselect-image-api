@@ -10,5 +10,5 @@ DATABASES = {
 }
 
 #Configure this in prod!
-# ALLOWED_HOSTS += []
+ALLOWED_HOSTS += ['imagemanager-api.herokuapp.com']
 
