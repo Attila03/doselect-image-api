@@ -5,7 +5,10 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import parsers, renderers
+from rest_framework import parsers, renderers, permissions
+from rest_framework import generics
+
+from .serializers import UserRegistrationSerializer
 
 
 class RefreshTokenView(APIView):
@@ -27,4 +30,12 @@ class RefreshTokenView(APIView):
             pass
         token, created = Token.objects.get_or_create(user=user)
         return Response({'token': token.key})
+
+
+class UserRegistrationView(generics.CreateAPIView):
+
+    authentication_classes = ()
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = UserRegistrationSerializer
+    queryset = User.objects.all()
 

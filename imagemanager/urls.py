@@ -19,10 +19,12 @@ from django.contrib import admin
 from django.conf import settings
 
 from rest_framework.authtoken import views
-from accounts.views import RefreshTokenView
+from accounts.views import RefreshTokenView, UserRegistrationView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^register/', UserRegistrationView.as_view(), name='register'),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include('imageapi.urls', namespace='imageapi')),
     url(r'^api-token-auth/', views.obtain_auth_token),
     url(r'^refresh-token', RefreshTokenView.as_view(), name='refresh-token')
