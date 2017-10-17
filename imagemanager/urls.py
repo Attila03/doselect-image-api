@@ -18,9 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
 
+from rest_framework.authtoken import views
+from accounts.views import RefreshTokenView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('imageapi.urls', namespace='imageapi'))
+    url(r'^api/', include('imageapi.urls', namespace='imageapi')),
+    url(r'^api-token-auth/', views.obtain_auth_token),
+    url(r'^refresh-token', RefreshTokenView.as_view(), name='refresh-token')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
