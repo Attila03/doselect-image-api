@@ -1,5 +1,6 @@
 import os
 import base64
+from urllib.parse import urljoin, quote
 
 from django.shortcuts import render
 from django.http.response import HttpResponse
@@ -43,7 +44,7 @@ class ImageListView(APIView):
         protocol = 'https://' if request.is_secure() else 'http://'
         for image_name in os.listdir(os.path.join(settings.MEDIA_ROOT, username)):
             image_url = protocol + request.get_host() + settings.MEDIA_URL + username + '/' + image_name
-            images[image_name] = image_url
+            images[image_name] = quote(image_url, safe=":/?&=+")
         return Response(images, status=status.HTTP_200_OK)
 
 
