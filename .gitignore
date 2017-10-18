@@ -106,3 +106,4 @@ venv.bak/
 *.sqlite3
 .idea
 old_settings.py
+media

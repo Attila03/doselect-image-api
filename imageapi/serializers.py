@@ -10,7 +10,7 @@ class ImagePostSerializer(serializers.Serializer):
     image = serializers.ImageField(max_length=255, allow_empty_file=False)
 
     def validate(self, data):
-        # checks if filename already exists, raise error if it does.
+        # checks if filename already exists irrespective of extension, raise error if it does.
         username = self.context['request'].user.username
         user_images_path = os.path.join(settings.MEDIA_ROOT, username)
         filenames = [os.path.splitext(f)[0] for f in os.listdir(user_images_path)
